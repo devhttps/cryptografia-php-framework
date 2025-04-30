@@ -2,6 +2,13 @@
 
 A modern and secure cryptography framework for PHP, offering methods for symmetric, asymmetric, hashing, key management, and more.
 
+## Licenses
+
+- **MIT License**: This project is licensed under the MIT License - see the LICENSE file for details.
+- **PHP License**: PHP is licensed under the PHP License v3.01.
+- **OpenSSL License**: OpenSSL is licensed under the Apache License 2.0.
+- **Sodium License**: Sodium is licensed under the ISC License.
+
 ## Table of Contents
 
 - [Features](#features)

@@ -1,13 +1,11 @@
 # PHP Cryptography Framework
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net)
+[![OpenSSL](https://img.shields.io/badge/OpenSSL-Required-green.svg)](https://www.openssl.org/)
+[![Sodium](https://img.shields.io/badge/Sodium-Recommended-green.svg)](https://libsodium.org/)
+
 A modern and secure cryptography framework for PHP, offering methods for symmetric, asymmetric, hashing, key management, and more.
-
-## Licenses
-
-- **MIT License**: This project is licensed under the MIT License - see the LICENSE file for details.
-- **PHP License**: PHP is licensed under the PHP License v3.01.
-- **OpenSSL License**: OpenSSL is licensed under the Apache License 2.0.
-- **Sodium License**: Sodium is licensed under the ISC License.
 
 ## Table of Contents
 
@@ -17,6 +15,7 @@ A modern and secure cryptography framework for PHP, offering methods for symmetr
 - [Usage](#usage)
 - [Security Best Practices](#security-best-practices)
 - [Advanced Features](#advanced-features)
+- [Contributing](#contributing)
 - [License](#license)
 - [Documentação em Português](#documentação-em-português)
 
@@ -76,15 +75,15 @@ A modern and secure cryptography framework for PHP, offering methods for symmetr
 
 ## Installation
 
-\`\`\`bash
+```bash
 composer require vendor/crypto-framework
-\`\`\`
+```
 
 ## Usage
 
 ### Symmetric Cryptography
 
-\`\`\`php
+```php
 use CryptoFramework\CryptoFacade;
 
 $crypto = new CryptoFacade();
@@ -97,11 +96,11 @@ $encryptedData = $crypto->encrypt("Sensitive data", $key);
 
 // Decrypt data
 $decryptedData = $crypto->decrypt($encryptedData, $key);
-\`\`\`
+```
 
 ### Algorithm Selection
 
-\`\`\`php
+```php
 use CryptoFramework\CryptoFacade;
 use CryptoFramework\Factories\SymmetricCryptoFactory;
 
@@ -118,11 +117,11 @@ $recommendedAlgorithm = $factory->getRecommendedAlgorithm();
 // Encrypt with specific algorithm
 $crypto = new CryptoFacade();
 $encryptedData = $crypto->encryptWithAlgorithm("Sensitive data", $key, $recommendedAlgorithm);
-\`\`\`
+```
 
 ### File Encryption
 
-\`\`\`php
+```php
 use CryptoFramework\CryptoFacade;
 
 $crypto = new CryptoFacade();
@@ -141,11 +140,11 @@ $crypto->encryptFile('document.pdf', 'document.enc', $fileKey, $metadata);
 
 // Decrypt file
 $retrievedMetadata = $crypto->decryptFile('document.enc', 'recovered_document.pdf', $fileKey);
-\`\`\`
+```
 
 ### Database Encryption
 
-\`\`\`php
+```php
 use CryptoFramework\CryptoFacade;
 use CryptoFramework\Database\DatabaseEncryptor;
 
@@ -168,11 +167,11 @@ $encryptedData = $dbEncryptor->encryptArray($userData, $dbKey, $fieldsToEncrypt)
 
 // Retrieve and decrypt
 $retrievedData = $dbEncryptor->decryptArray($encryptedData, $dbKey, $fieldsToEncrypt);
-\`\`\`
+```
 
 ### Secure Sessions
 
-\`\`\`php
+```php
 use CryptoFramework\CryptoFacade;
 use CryptoFramework\Session\SecureSessionHandler;
 
@@ -194,11 +193,11 @@ session_start();
 
 // Use session normally
 $_SESSION['user_id'] = 123;
-\`\`\`
+```
 
 ### Laravel Integration
 
-\`\`\`php
+```php
 use CryptoFramework\CryptoFacade;
 use CryptoFramework\Adapters\LaravelAdapter;
 use Illuminate\Encryption\Encrypter;
@@ -215,7 +214,7 @@ $crypto = new CryptoFacade(frameworkAdapter: $laravelAdapter);
 // Use methods normally (will be delegated to Laravel)
 $encryptedData = $crypto->encrypt("Sensitive data", "");
 $hash = $crypto->hashPassword("password123");
-\`\`\`
+```
 
 ## Security Best Practices
 
@@ -232,7 +231,7 @@ $hash = $crypto->hashPassword("password123");
 
 ### Environment Security Check
 
-\`\`\`php
+```php
 use CryptoFramework\CryptoFacade;
 
 $crypto = new CryptoFacade();
@@ -245,11 +244,11 @@ if (!$securityCheck['php_version_secure']) {
 if (!$securityCheck['aes_gcm_available']) {
     echo "Warning: AES-GCM is not available in this environment.\n";
 }
-\`\`\`
+```
 
 ### Security Auditing
 
-\`\`\`php
+```php
 use CryptoFramework\CryptoFacade;
 use CryptoFramework\Utils\SecurityAudit;
 use Monolog\Logger;
@@ -267,7 +266,11 @@ $crypto = new CryptoFacade(securityAudit: $securityAudit);
 
 // All operations will be logged
 $encryptedData = $crypto->encrypt("Sensitive data", $key);
-\`\`\`
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 

@@ -1,131 +1,141 @@
-# Framework de Criptografia PHP
+# PHP Cryptography Framework
 
-Um framework moderno e seguro para criptografia em PHP, oferecendo métodos para criptografia simétrica, assimétrica, hashing, gerenciamento de chaves e muito mais.
+A modern and secure cryptography framework for PHP, offering methods for symmetric, asymmetric, hashing, key management, and more.
 
-## Recursos
+## Table of Contents
 
-### Criptografia Simétrica
-- **AES-256-GCM**: Criptografia autenticada com Galois/Counter Mode
-- **AES-256-CBC**: Modo CBC com HMAC para autenticação
-- **ChaCha20-Poly1305**: Algoritmo moderno e rápido
-- **Camellia-256-GCM**: Alternativa ao AES com segurança equivalente
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Security Best Practices](#security-best-practices)
+- [Advanced Features](#advanced-features)
+- [License](#license)
 
-### Criptografia Assimétrica
-- **RSA**: Implementação com padding OAEP para segurança adicional
-- **ECC**: Criptografia de curva elíptica, mais eficiente para chaves de tamanho menor
-- **ECDH**: Troca de chaves Diffie-Hellman com curvas elípticas
+## Features
 
-### Hashing Seguro
-- **Argon2id**: Algoritmo moderno recomendado para senhas
-- **Bcrypt**: Algoritmo tradicional para hashing de senhas
-- **HMAC**: Código de autenticação de mensagem baseado em hash
+### Symmetric Cryptography
+- **AES-256-GCM**: Authenticated encryption with Galois/Counter Mode
+- **AES-256-CBC**: CBC mode with HMAC for authentication
+- **ChaCha20-Poly1305**: Modern and fast algorithm
+- **Camellia-256-GCM**: AES alternative with equivalent security
 
-### Gerenciamento de Chaves
-- **KeyVault**: Armazenamento seguro de chaves com criptografia
-- **Rotação de Chaves**: Sistema para gerenciar versões de chaves
-- **Derivação de Chaves**: PBKDF2 e HKDF para derivação segura
+### Asymmetric Cryptography
+- **RSA**: Implementation with OAEP padding for additional security
+- **ECC**: Elliptic curve cryptography, more efficient for smaller keys
+- **ECDH**: Elliptic curve Diffie-Hellman key exchange
 
-### Criptografia de Arquivos
-- **SecureFileEncryptor**: Criptografia de arquivos com metadados
-- **Streaming**: Processamento eficiente de arquivos grandes
-- **Verificação de Integridade**: Autenticação de dados para evitar adulteração
+### Secure Hashing
+- **Argon2id**: Modern algorithm recommended for passwords
+- **Bcrypt**: Traditional algorithm for password hashing
+- **HMAC**: Hash-based message authentication code
 
-### Criptografia de Banco de Dados
-- **DatabaseEncryptor**: Criptografia de campos sensíveis em banco de dados
-- **Serialização Segura**: Suporte a tipos complexos de dados
-- **Contexto de Autenticação**: Proteção contra ataques de troca de contexto
+### Key Management
+- **KeyVault**: Secure key storage with encryption
+- **Key Rotation**: System for managing key versions
+- **Key Derivation**: PBKDF2 and HKDF for secure derivation
 
-### Sessões Seguras
-- **SecureSessionHandler**: Manipulador de sessão com criptografia
-- **Configuração Segura**: Opções recomendadas para cookies e sessões
-- **Proteção contra Roubo de Sessão**: Cookies HttpOnly e SameSite
+### File Encryption
+- **SecureFileEncryptor**: File encryption with metadata
+- **Streaming**: Efficient processing of large files
+- **Integrity Check**: Data authentication to prevent tampering
 
-### Integração com Frameworks
-- **Laravel**: Adapter para integração com Laravel Encryption e Hashing
-- **Outros Frameworks**: Interface extensível para outros frameworks
+### Database Encryption
+- **DatabaseEncryptor**: Encryption of sensitive fields in the database
+- **Secure Serialization**: Support for complex data types
+- **Authentication Context**: Protection against context switching attacks
 
-### Utilitários de Segurança
-- **RandomGenerator**: Geração segura de bytes, strings e UUIDs aleatórios
-- **SecurityAudit**: Registro e auditoria de operações criptográficas
-- **ConstantTime**: Operações em tempo constante para evitar timing attacks
+### Secure Sessions
+- **SecureSessionHandler**: Encrypted session handler
+- **Secure Configuration**: Recommended options for cookies and sessions
+- **Session Hijacking Protection**: HttpOnly and SameSite cookies
 
-## Requisitos
+### Framework Integration
+- **Laravel**: Adapter for integration with Laravel Encryption and Hashing
+- **Other Frameworks**: Extensible interface for other frameworks
 
-- PHP 8.1 ou superior
-- Extensão OpenSSL
-- Extensão Sodium (recomendado)
-- Extensão mbstring
+### Security Utilities
+- **RandomGenerator**: Secure generation of random bytes, strings, and UUIDs
+- **SecurityAudit**: Logging and auditing of cryptographic operations
+- **ConstantTime**: Constant-time operations to prevent timing attacks
 
-## Instalação
+## Requirements
+
+- PHP 8.1 or higher
+- OpenSSL extension
+- Sodium extension (recommended)
+- mbstring extension
+
+## Installation
 
 \`\`\`bash
 composer require vendor/crypto-framework
 \`\`\`
 
-## Uso Básico
+## Usage
 
-### Criptografia Simétrica
+### Symmetric Cryptography
 
 \`\`\`php
 use CryptoFramework\CryptoFacade;
 
 $crypto = new CryptoFacade();
 
-// Gerar uma chave segura
+// Generate a secure key
 $key = $crypto->generateRandomBytes(32);
 
-// Criptografar dados
-$encryptedData = $crypto->encrypt("Dados sensíveis", $key);
+// Encrypt data
+$encryptedData = $crypto->encrypt("Sensitive data", $key);
 
-// Descriptografar dados
+// Decrypt data
 $decryptedData = $crypto->decrypt($encryptedData, $key);
 \`\`\`
 
-### Escolha de Algoritmo
+### Algorithm Selection
 
 \`\`\`php
 use CryptoFramework\CryptoFacade;
 use CryptoFramework\Factories\SymmetricCryptoFactory;
 
-// Criar fábrica de criptografia simétrica
+// Create symmetric cryptography factory
 $factory = new SymmetricCryptoFactory();
 
-// Listar algoritmos disponíveis
+// List available algorithms
 $algorithms = $factory->getAvailableAlgorithms();
 print_r($algorithms);
 
-// Obter algoritmo recomendado
+// Get recommended algorithm
 $recommendedAlgorithm = $factory->getRecommendedAlgorithm();
 
-// Criptografar com algoritmo específico
+// Encrypt with specific algorithm
 $crypto = new CryptoFacade();
-$encryptedData = $crypto->encryptWithAlgorithm("Dados sensíveis", $key, $recommendedAlgorithm);
+$encryptedData = $crypto->encryptWithAlgorithm("Sensitive data", $key, $recommendedAlgorithm);
 \`\`\`
 
-### Criptografia de Arquivos
+### File Encryption
 
 \`\`\`php
 use CryptoFramework\CryptoFacade;
 
 $crypto = new CryptoFacade();
 
-// Gerar chave para criptografia de arquivo
+// Generate key for file encryption
 $fileKey = $crypto->generateRandomBytes(32);
 
-// Criptografar arquivo
+// Encrypt file
 $metadata = [
-    'description' => 'Documento confidencial',
-    'owner' => 'João Silva',
+    'description' => 'Confidential document',
+    'owner' => 'John Doe',
     'created_at' => time()
 ];
 
-$crypto->encryptFile('documento.pdf', 'documento.enc', $fileKey, $metadata);
+$crypto->encryptFile('document.pdf', 'document.enc', $fileKey, $metadata);
 
-// Descriptografar arquivo
-$retrievedMetadata = $crypto->decryptFile('documento.enc', 'documento_recuperado.pdf', $fileKey);
+// Decrypt file
+$retrievedMetadata = $crypto->decryptFile('document.enc', 'recovered_document.pdf', $fileKey);
 \`\`\`
 
-### Criptografia de Banco de Dados
+### Database Encryption
 
 \`\`\`php
 use CryptoFramework\CryptoFacade;
@@ -135,24 +145,24 @@ $crypto = new CryptoFacade();
 $dbKey = $crypto->generateRandomBytes(32);
 $dbEncryptor = new DatabaseEncryptor();
 
-// Criptografar campos sensíveis
+// Encrypt sensitive fields
 $userData = [
     'id' => 1,
-    'name' => 'João Silva',
-    'email' => 'joao@example.com',
+    'name' => 'John Doe',
+    'email' => 'john@example.com',
     'credit_card' => '1234-5678-9012-3456'
 ];
 
 $fieldsToEncrypt = ['email', 'credit_card'];
 $encryptedData = $dbEncryptor->encryptArray($userData, $dbKey, $fieldsToEncrypt);
 
-// Armazenar $encryptedData no banco de dados
+// Store $encryptedData in the database
 
-// Recuperar e descriptografar
+// Retrieve and decrypt
 $retrievedData = $dbEncryptor->decryptArray($encryptedData, $dbKey, $fieldsToEncrypt);
 \`\`\`
 
-### Sessões Seguras
+### Secure Sessions
 
 \`\`\`php
 use CryptoFramework\CryptoFacade;
@@ -161,24 +171,24 @@ use CryptoFramework\Session\SecureSessionHandler;
 $crypto = new CryptoFacade();
 $sessionKey = $crypto->generateRandomBytes(32);
 
-// Configurar opções de sessão
+// Configure session options
 SecureSessionHandler::setup([
     'cookie_lifetime' => 3600,
     'gc_maxlifetime' => 3600
 ]);
 
-// Criar e registrar manipulador de sessão
+// Create and register session handler
 $sessionHandler = $crypto->createSessionHandler($sessionKey);
 session_set_save_handler($sessionHandler, true);
 
-// Iniciar sessão
+// Start session
 session_start();
 
-// Usar sessão normalmente
+// Use session normally
 $_SESSION['user_id'] = 123;
 \`\`\`
 
-### Integração com Laravel
+### Laravel Integration
 
 \`\`\`php
 use CryptoFramework\CryptoFacade;
@@ -186,33 +196,33 @@ use CryptoFramework\Adapters\LaravelAdapter;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Hashing\BcryptHasher;
 
-// Criar adapter para Laravel
+// Create adapter for Laravel
 $encrypter = new Encrypter(base64_decode($appKey), 'AES-256-CBC');
 $hasher = new BcryptHasher(['rounds' => 12]);
 $laravelAdapter = new LaravelAdapter($encrypter, $hasher);
 
-// Criar CryptoFacade com adapter
+// Create CryptoFacade with adapter
 $crypto = new CryptoFacade(frameworkAdapter: $laravelAdapter);
 
-// Usar métodos normalmente (serão delegados ao Laravel)
-$encryptedData = $crypto->encrypt("Dados sensíveis", "");
-$hash = $crypto->hashPassword("senha123");
+// Use methods normally (will be delegated to Laravel)
+$encryptedData = $crypto->encrypt("Sensitive data", "");
+$hash = $crypto->hashPassword("password123");
 \`\`\`
 
-## Boas Práticas de Segurança
+## Security Best Practices
 
-1. **Gerenciamento de Chaves**: Use o KeyVault para armazenar chaves de forma segura.
-2. **Rotação de Chaves**: Rotacione chaves regularmente para limitar o impacto de comprometimento.
-3. **Algoritmos Autenticados**: Prefira algoritmos que oferecem autenticação (GCM, Poly1305).
-4. **Dados Associados**: Use dados associados (AAD) para vincular o contexto à criptografia.
-5. **Auditoria**: Implemente o SecurityAudit para registrar operações criptográficas.
-6. **Verificação de Ambiente**: Use checkEnvironmentSecurity() para verificar a segurança do ambiente.
-7. **Senhas Fortes**: Use o SecureHasher com Argon2id para hashing de senhas.
-8. **Sessões Seguras**: Use o SecureSessionHandler para proteger sessões.
+1. **Key Management**: Use KeyVault to securely store keys.
+2. **Key Rotation**: Rotate keys regularly to limit the impact of compromise.
+3. **Authenticated Algorithms**: Prefer algorithms that offer authentication (GCM, Poly1305).
+4. **Associated Data**: Use associated data (AAD) to bind context to encryption.
+5. **Auditing**: Implement SecurityAudit to log cryptographic operations.
+6. **Environment Check**: Use checkEnvironmentSecurity() to verify the security of the environment.
+7. **Strong Passwords**: Use SecureHasher with Argon2id for password hashing.
+8. **Secure Sessions**: Use SecureSessionHandler to protect sessions.
 
-## Recursos Avançados
+## Advanced Features
 
-### Verificação de Segurança do Ambiente
+### Environment Security Check
 
 \`\`\`php
 use CryptoFramework\CryptoFacade;
@@ -221,15 +231,15 @@ $crypto = new CryptoFacade();
 $securityCheck = $crypto->checkEnvironmentSecurity();
 
 if (!$securityCheck['php_version_secure']) {
-    echo "Atenção: Sua versão do PHP não é considerada segura.\n";
+    echo "Warning: Your PHP version is not considered secure.\n";
 }
 
 if (!$securityCheck['aes_gcm_available']) {
-    echo "Atenção: AES-GCM não está disponível neste ambiente.\n";
+    echo "Warning: AES-GCM is not available in this environment.\n";
 }
 \`\`\`
 
-### Auditoria de Segurança
+### Security Auditing
 
 \`\`\`php
 use CryptoFramework\CryptoFacade;
@@ -237,20 +247,20 @@ use CryptoFramework\Utils\SecurityAudit;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-// Configurar logger
+// Configure logger
 $logger = new Logger('crypto');
 $logger->pushHandler(new StreamHandler('crypto.log', Logger::INFO));
 
-// Criar auditoria de segurança
-$securityAudit = new SecurityAudit($logger, 'MinhaApp', 'admin');
+// Create security audit
+$securityAudit = new SecurityAudit($logger, 'MyApp', 'admin');
 
-// Criar CryptoFacade com auditoria
+// Create CryptoFacade with auditing
 $crypto = new CryptoFacade(securityAudit: $securityAudit);
 
-// Todas as operações serão registradas no log
-$encryptedData = $crypto->encrypt("Dados sensíveis", $key);
+// All operations will be logged
+$encryptedData = $crypto->encrypt("Sensitive data", $key);
 \`\`\`
 
-## Licença
+## License
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para detalhes.
+This project is licensed under the MIT License - see the LICENSE file for details.
